@@ -90,27 +90,30 @@ int lcm (int a, int b) { return a / __gcd(a, b) * b;}
 bool many_test = 0;
 //----- The Minute you think of giving up, think of the reason why you held so long..!! ------
 /*
-Problem Name: Weird Algorithm
-Problem Link: https://cses.fi/problemset/task/1068
+Problem Name: Increasing Array
+Problem Link: https://cses.fi/problemset/task/1094
 Approach : Implementation
 */
  
 void solve() {
+   
    ll n;
    cin>>n;
-   while(n!=1)
+   vi vc(n);
+   FOR(i,0,n)
    {
-        cout<<n<<" ";
-        if(n&1)
-        {
-            n=(n*3)+1;
-        }
-        else
-        {
-            n/=2;
-        }
+    cin>>vc[i];
    }
-   cout<<'1';
+   ll tar=0;
+   FOR(i,1,n)
+   {
+    if(vc[i]<vc[i-1])
+    {
+         tar+=abs(vc[i]-vc[i-1]);
+         vc[i]=vc[i-1];
+    }
+   }
+   cout<<tar; 
 }
  
 signed main() {

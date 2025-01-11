@@ -43,6 +43,7 @@ void _print(char t) {cerr << t;}
 void _print(ld t) {cerr << t;}
 void _print(double t) {cerr << t;}
 void _print(ull t) {cerr << t;}
+void _print(ll t) {cerr << t;}
 void _print(bool t) {cerr << t;}
  
 template <class T, class V> void _print(pair <T, V> p) {cerr << "{"; _print(p.ff); cerr << ","; _print(p.ss); cerr << "}";}
@@ -90,27 +91,33 @@ int lcm (int a, int b) { return a / __gcd(a, b) * b;}
 bool many_test = 0;
 //----- The Minute you think of giving up, think of the reason why you held so long..!! ------
 /*
-Problem Name: Weird Algorithm
-Problem Link: https://cses.fi/problemset/task/1068
+Problem Name: Permutations
+Problem Link: https://cses.fi/problemset/task/1070
 Approach : Implementation
 */
  
 void solve() {
+   
    ll n;
    cin>>n;
-   while(n!=1)
+   vi vc(n,0);
+   if(n==1){cout<<1;return;}
+   if(n<=3){cout<<"NO SOLUTION";return;}
+   ll cnt=1;
+   for(ll i=1;i<n;i+=2)
    {
-        cout<<n<<" ";
-        if(n&1)
-        {
-            n=(n*3)+1;
-        }
-        else
-        {
-            n/=2;
-        }
+    vc[i]=cnt;
+    cnt++;
    }
-   cout<<'1';
+   for(ll i=0;i<n;i+=2)
+   {
+    vc[i]=cnt;
+    cnt++;
+   }
+
+//    _print(vc);
+    FORE(i,vc)cout<<i<<" ";
+
 }
  
 signed main() {

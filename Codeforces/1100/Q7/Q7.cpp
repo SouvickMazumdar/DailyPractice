@@ -25,18 +25,18 @@ using namespace chrono;
 #define endl           "\n"
 #define PI              3.141592653589793238462
 #define set_bits        __builtin_popcountll
-#define FOR(i,a,b)      for(int i=a; i<b; ++i)
+#define FOR(i,a,b)      for(ll i=a; i<b; ++i)
 #define FORE(i,b)        for(auto i : b)
-#define FORRev(i,a,b)   for(int i=a; i>=b; --i)
+#define FORRev(i,a,b)   for(ll i=a; i>=b; --i)
 #define precision(n)    cout<<setprecision(n)<<fixed;
 // typedef tree<pi , null_type, less<pi>, rb_tree_tag, tree_order_statistics_node_update> PBDS; //find_by_order, order_of_key
- 
+
 #ifndef ONLINE_JUDGE
 #define debug(x) cerr << #x <<" "; _print(x); cerr << endl;
 #else
 #define debug(x)
 #endif
- 
+
 void _print(int t) {cerr << t;}
 void _print(string t) {cerr << t;}
 void _print(char t) {cerr << t;}
@@ -44,7 +44,7 @@ void _print(ld t) {cerr << t;}
 void _print(double t) {cerr << t;}
 void _print(ull t) {cerr << t;}
 void _print(bool t) {cerr << t;}
- 
+
 template <class T, class V> void _print(pair <T, V> p) {cerr << "{"; _print(p.ff); cerr << ","; _print(p.ss); cerr << "}";}
 template <class T> void _print(vector <T> v) {cerr << "[ "; for (T i : v) {_print(i); cerr << " ";} cerr << "]";}
 template <class T> void _print(set <T> v) {cerr << "[ "; for (T i : v) {_print(i); cerr << " ";} cerr << "]";}
@@ -54,7 +54,7 @@ template <class T, class V> void _print(map <T, V> v) {cerr << "[ "; for (auto i
 template <class T, class V> void _print(unordered_map <T, V> v) {cerr << "[ "; for (auto i : v) {_print(i); cerr << " ";} cerr << "]";}
 template <class T> void _print(priority_queue<T> pq) { cerr << "[ "; while (!pq.empty()) { cerr << pq.top() << " "; pq.pop(); } cerr << " ]"; }
 template <class T> void _print(priority_queue<T, vector<T>, greater<T>> pq) { cerr << "[ "; while (!pq.empty()) { cerr << pq.top() << " "; pq.pop(); } cerr << " ]"; }
- 
+
 // Operator overloads
 template<typename T1, typename T2> // cin >> pair<T1, T2>
 istream& operator>>(istream &istream, pair<T1, T2> &p) { return (istream >> p.first >> p.second); }
@@ -64,10 +64,10 @@ template<typename T1, typename T2> // cout << pair<T1, T2>
 ostream& operator<<(ostream &ostream, const pair<T1, T2> &p) { return (ostream << p.first << " " << p.second); }
 template<typename T> // cout << vector<T>
 ostream& operator<<(ostream &ostream, const vector<T> &c) { for (auto &it : c) cout << it << " "; return ostream; }
- 
+
 mt19937 rng(chrono::steady_clock::now().time_since_epoch().count());
 //-------------------------------------------------------------------------------------------
- 
+
 int gcd(int a, int b) {if (b > a) {return gcd(b, a);} if (b == 0) {return a;} return gcd(b, a % b);}
 int expo(int a, int b, int mod) {int res = 1; while (b > 0) {if (b & 1)res = (res * a) % mod; a = (a * a) % mod; b = b >> 1;} return res;}
 void extendgcd(int a, int b, int*v) {if (b == 0) {v[0] = 1; v[1] = 0; v[2] = a; return ;} extendgcd(b, a % b, v); int x = v[1]; v[1] = v[0] - v[1] * (a / b); v[0] = x; return;} //pass an arry of size1 3
@@ -87,32 +87,45 @@ int floor1(int n, int k) {if (n % k == 0 || n >= 0)return n / k; return (n / k) 
 int ceil1(int n, int k) {return floor1(n + k - 1, k);}
 int binpow(int a, int b) { int res = 1; while (b > 0) { if (b & 1) res = res * a; a = a * a; b >>= 1; } return res;}
 int lcm (int a, int b) { return a / __gcd(a, b) * b;}
-bool many_test = 0;
+bool many_test = 1;
 //----- The Minute you think of giving up, think of the reason why you held so long..!! ------
 /*
-Problem Name: Weird Algorithm
-Problem Link: https://cses.fi/problemset/task/1068
-Approach : Implementation
+Problem Name: E. Building an Aquarium
+Problem Link: https://codeforces.com/problemset/problem/1873/E
+Approach : Sorting and searching
 */
- 
+
 void solve() {
-   ll n;
-   cin>>n;
-   while(n!=1)
+   ll n,q;
+   cin>>n>>q;
+   vi a(n);
+   FOR(i,0,n)cin>>a[i];
+   sort(all(a));
+   ll sum=0;
+   FOR(i,1,n)
    {
-        cout<<n<<" ";
-        if(n&1)
+        sum+=(i*(a[i]-a[i-1]));
+        if(sum==q)
         {
-            n=(n*3)+1;
+            cout<<a[i]<<endl;return;
         }
-        else
+        else if(sum>q)
         {
-            n/=2;
+           ll dis=abs(a[i]-a[i-1]);
+           sum-=(i*(a[i]-a[i-1]));
+           ll tr=q-sum;
+           cout<<a[i-1]+tr/i<<endl;
+           return;
         }
    }
-   cout<<'1';
+   if(sum<q)
+   {
+    ll tr=q-sum;
+    cout<<a[n-1]+tr/n<<endl;return;
+   }
+   
 }
- 
+
 signed main() {
 #ifndef ONLINE_JUDGE
     freopen("error.txt", "w", stderr);
