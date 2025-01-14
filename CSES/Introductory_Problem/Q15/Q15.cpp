@@ -114,8 +114,8 @@ Edges Cases to think:
 
 
 
-Problem Name: Tower of Hanoi
-Problem Link: https://cses.fi/problemset/task/2165
+Problem Name: String permutation
+Problem Link: https://cses.fi/problemset/task/1622
 Approach : Recursion
 */
 void solve() {
