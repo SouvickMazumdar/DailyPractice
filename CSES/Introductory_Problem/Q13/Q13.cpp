@@ -13,11 +13,11 @@ using namespace chrono;
 #define pb              push_back
 #define no              cout<<"NO\n"
 #define yes             cout<<"YES\n"
-#define len(x)           x.size();
+#define len(x)           x.size()
 #define all(x)          x.begin(), x.end()
 #define allrev(x)       x.rbegin(), x.rend()
 #define pi              pair<ll,ll>
-#define vi              vector<ll>
+#define vi              vector<ull>
 #define vpi             vector<pi>
 #define vvi             vector<vector<ll>>
 #define vvpi            vector<vector<pi>>
@@ -87,7 +87,7 @@ int floor1(int n, int k) {if (n % k == 0 || n >= 0)return n / k; return (n / k) 
 int ceil1(int n, int k) {return floor1(n + k - 1, k);}
 int binpow(int a, int b) { int res = 1; while (b > 0) { if (b & 1) res = res * a; a = a * a; b >>= 1; } return res;}
 int lcm (int a, int b) { return a / __gcd(a, b) * b;}
-bool many_test = 1;
+bool many_test = 0;
 //----- The Minute you think of giving up, think of the reason why you held so long..!! ------
 /*
 Edges Cases to think:
@@ -112,30 +112,43 @@ Edges Cases to think:
 14. Sparse/Dense Graphs
 15. Custom Data Structures
 
-Problem Name: B. Maximum Sum
-Problem Link: https://codeforces.com/problemset/problem/1832/B
-Approach : Sorting and Prefix sum
 
 
-
+Problem Name: Gray Code
+Problem Link: https://cses.fi/problemset/task/2205
+Approach : Bit Manipulation
 */
 
 void solve() {
-    ll n,k;
-    cin>>n>>k;
-    vi vc(n);
-    FOR(i,0,n)cin>>vc[i];
-    // ll sum_tot=accumulate(all(vc),0LL);
-    sort(all(vc));
-    vi pr(n+1,0);
-    FOR(i,0,n)pr[i+1]=pr[i]+vc[i];
-    ll ans=-1;
-    FOR(i,0,k+1)
-    {
-        ans=max(ans,pr[n-(k-i)]-pr[2*i]);
-    }
-   cout<<ans<<endl;
-
+   ll n;
+   cin>>n;
+   if(n==1)
+   {
+    cout<<0<<endl;
+    cout<<1<<endl;
+    return ;
+   }
+   vector<string>st={"0","1"};
+   n--;
+    // cout<<n<<endl;
+   while(n--)
+   {
+        vector<string> rt=st;
+        reverse(all(rt));
+        int mt=len(st);
+        // insert syntax (position, first, last)
+       st.insert(st.end(),all(rt));
+        FOR(i,0,len(st))
+        {
+            if(i<mt)
+            {
+                st[i]='0'+st[i];
+            }
+            else
+            st[i]='1'+st[i];
+        }
+   }
+   FORE(i,st)cout<<i<<endl;
 }
 
 signed main() {

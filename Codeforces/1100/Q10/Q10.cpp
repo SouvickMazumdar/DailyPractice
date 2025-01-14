@@ -13,7 +13,7 @@ using namespace chrono;
 #define pb              push_back
 #define no              cout<<"NO\n"
 #define yes             cout<<"YES\n"
-#define len(x)           x.size();
+#define len(x)          x.size()
 #define all(x)          x.begin(), x.end()
 #define allrev(x)       x.rbegin(), x.rend()
 #define pi              pair<ll,ll>
@@ -27,7 +27,7 @@ using namespace chrono;
 #define set_bits        __builtin_popcountll
 #define FOR(i,a,b)      for(ll i=a; i<b; ++i)
 #define FORE(i,b)        for(auto i : b)
-#define FORRev(i,a,b)   for(ll i=a; i>=b; --i)
+#define FORREV(i,a,b)   for(ll i=a; i>=b; --i)
 #define precision(n)    cout<<setprecision(n)<<fixed;
 // typedef tree<pi , null_type, less<pi>, rb_tree_tag, tree_order_statistics_node_update> PBDS; //find_by_order, order_of_key
 
@@ -112,29 +112,71 @@ Edges Cases to think:
 14. Sparse/Dense Graphs
 15. Custom Data Structures
 
-Problem Name: B. Maximum Sum
-Problem Link: https://codeforces.com/problemset/problem/1832/B
-Approach : Sorting and Prefix sum
-
-
+Problem Name: B. Tenzing and Books
+Problem Link: https://codeforces.com/problemset/problem/1842/B
+Approach : Bitmask and Stack
 
 */
 
 void solve() {
-    ll n,k;
-    cin>>n>>k;
-    vi vc(n);
-    FOR(i,0,n)cin>>vc[i];
-    // ll sum_tot=accumulate(all(vc),0LL);
-    sort(all(vc));
-    vi pr(n+1,0);
-    FOR(i,0,n)pr[i+1]=pr[i]+vc[i];
-    ll ans=-1;
-    FOR(i,0,k+1)
+    ll n,x;
+    cin>>n>>x;
+    vi a(n);
+    vi b(n);
+    vi c(n);
+    // Inserting from backside to perform pop_back() and push_back() easily
+   FORREV(i,n-1,0)cin>>a[i];
+   FORREV(i,n-1,0)cin>>b[i];
+   FORREV(i,n-1,0)cin>>c[i];
+   if(x==0){
+    yes;
+    return;
+   }
+    ll temp=0;
+    while(true)
     {
-        ans=max(ans,pr[n-(k-i)]-pr[2*i]);
+        int cnt=0;
+        if((x|a[len(a)-1])==x)
+        {
+            temp=temp|a[len(a)-1];
+            a.pop_back();
+            if(temp==x)
+            {
+                yes;
+                return;
+            }
+            cnt++;
+        }
+        if((x|b[len(b)-1])==x)
+        {
+            temp=temp|b[len(b)-1];
+            b.pop_back();
+            if(temp==x)
+            {
+                yes;
+                return;
+            }
+            cnt++;
+        }
+        if((x|c[len(c)-1])==x)
+        {
+            temp=temp|c[len(c)-1];
+            c.pop_back();
+            if(temp==x)
+            {
+                yes;
+                return;
+            }
+            cnt++;
+        }
+        // cout<<cnt<<endl;
+        if(cnt==0)
+        {
+            no;
+            return;
+        }
     }
-   cout<<ans<<endl;
+    no;
 
 }
 
@@ -151,7 +193,7 @@ signed main() {
         cin >> t;
     while (t--) {
         solve();
-        debug(newTestCase);
+        // debug(newTestCase);
     }
     auto stop1 = high_resolution_clock::now();
     auto duration = duration_cast<microseconds>(stop1 - start1);

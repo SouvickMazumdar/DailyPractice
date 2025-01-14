@@ -90,6 +90,30 @@ int lcm (int a, int b) { return a / __gcd(a, b) * b;}
 bool many_test = 1;
 //----- The Minute you think of giving up, think of the reason why you held so long..!! ------
 /*
+Edges Cases to think:
+ 
+1. Empty/Minimal Inputs
+2. Max/Min Values
+3. Zero & Negative Numbers
+ 
+4. Off-by-one Errors
+5. Duplicates/Repetition
+6. Non-Standard Characters
+ 
+7. Floating-Point Precision
+8. Single-element Inputs
+9. Graph Edge Cases
+ 
+10. Large Outputs
+11. Negative/Invalid Inputs
+12. Time & Space Limits
+ 
+13. Edge Cases in DP
+14. Sparse/Dense Graphs
+15. Custom Data Structures
+
+
+
 Problem Name: E. Cardboard for Pictures
 Problem Link: https://codeforces.com/problemset/problem/1850/E
 Approach : Binary Search
