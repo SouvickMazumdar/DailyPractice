@@ -1,0 +1,39 @@
+class Solution {
+public:
+    int minimizeXor(int num1, int num2) {
+        // int =__builtin_popcount(num2);
+        int one_2=0;
+        
+        while(num2){
+            one_2+=(num2%2);
+            num2/=2;
+        }
+        int ans=0;
+       for(int i=31;i>=0;i--)
+       {
+        if((num1 & (1<<i) )&& one_2>0)
+        {
+            num1=num1^(1<<i);
+            ans|=(1<<i);
+            // cout<<ans<<endl;
+            one_2--;
+        }
+       }
+       int j=0;
+       if(num1==0 && one_2!=0)
+       {
+            while(one_2>0)
+            {
+                if((ans & (1<<j))==0)
+                {
+                    ans|=(1<<j);
+                    // cout<<"))"<<ans<<endl;
+                    one_2--;  
+                }
+                j++;
+                 
+            }
+       }
+       return ans;
+    }
+};
