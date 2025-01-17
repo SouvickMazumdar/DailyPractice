@@ -1,0 +1,37 @@
+//https://www.geeksforgeeks.org/problems/product-array-puzzle4525/1
+
+class Solution {
+  public:
+    vector<int> productExceptSelf(vector<int>& arr) {
+        // code here
+        long long res=1;
+        int cnt=0;
+        for(auto it:arr){
+            if(it==0)
+            {
+                cnt++;
+            }
+            else
+            res*=it;
+            
+        }
+        vector<int>ans;
+        if(cnt>1)res=0;
+        int temp=res;
+        for(auto it:arr)
+        {
+            temp=res;
+            if(it!=0&&cnt==1)
+            {
+                temp=0;
+            }
+            if(it==0)
+            {
+                ans.push_back(temp);
+            }
+            else
+            ans.push_back(temp/it);
+        }
+        return ans;
+    }
+};

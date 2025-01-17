@@ -1,0 +1,26 @@
+//https://leetcode.com/problems/neighboring-bitwise-xor/?envType=daily-question&envId=2025-01-17
+
+class Solution {
+public:
+    bool doesValidArrayExist(vector<int>& dr) {
+        int ini=0,net=0,key=0;
+        int n=dr.size();
+        for(int i=0;i<n-1;i++)
+        {
+            if(dr[i]==0)
+            {
+                net=key;
+            }
+            else
+            {
+                net=key^1;
+            }
+            key=net;
+        }
+        if(dr[n-1]==1)
+        {
+            return key!=ini;
+        }
+        else return key==ini;
+    }
+};
