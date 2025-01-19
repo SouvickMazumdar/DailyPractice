@@ -1,0 +1,32 @@
+//https://www.geeksforgeeks.org/problems/rotate-a-linked-list/1
+class Solution {
+  public:
+    Node* rotate(Node* head, int k) {
+        // Your code here
+          if (k == 0 || head == nullptr)
+        return head;
+         Node *temp=head;
+        int n=1;
+        while(temp->next)
+        {
+            n++;
+            temp=temp->next;
+        }
+       
+        // int n=site(rd);
+         k%=n;
+         if(k==0)return head;
+         temp->next=head;
+       
+        temp=head;
+        for(int i=1;i<k;i++)
+        {
+            temp=temp->next;
+        }
+        head=temp->next;
+        temp->next=nullptr;
+        return head;
+        
+        
+    }
+};
