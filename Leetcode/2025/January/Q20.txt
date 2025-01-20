@@ -1,0 +1,26 @@
+//https://leetcode.com/problems/first-completely-painted-row-or-column/description/?envType=daily-question&envId=2025-01-20
+class Solution {
+public:
+    int firstCompleteIndex(vector<int>& arr, vector<vector<int>>& mat) {
+        map<int,pair<int,int>>mp;
+        int n=mat.size();
+        int m=mat[0].size();
+        for(int i=0;i<n;i++)
+        {
+            for(int j=0;j<m;j++)
+            {
+                mp[mat[i][j]]=make_pair(i,j);
+            }
+        }
+        int k=arr.size();
+        int row[n],col[m];
+        for(int i=0;i<n;i++)row[i]=0;
+        for(int i=0;i<m;i++)col[i]=0;
+        for(int i=0;i<k;i++)
+        {
+            if(++row[mp[arr[i]].first]==m|| ++col[mp[arr[i]].second]==n)return i;
+            
+        }
+        return -1;
+    }
+};

@@ -1,0 +1,50 @@
+//https://www.geeksforgeeks.org/problems/merge-two-sorted-linked-lists/1
+class Solution {
+  public:
+    Node* sortedMerge(Node* head1, Node* head2) {
+        // code here
+        Node *temp1=head1;
+        Node *temp2=head2;
+        Node *top;
+        if(temp1->data<temp2->data)
+        {
+            top=temp1;
+            temp1=temp1->next;
+        }
+        else {
+            top=temp2;
+            temp2=temp2->next;
+        }
+        Node* start=top;
+        while(temp1 && temp2)
+        {
+            if(temp1->data<temp2->data)
+            {
+                top->next=temp1;
+                temp1=temp1->next;
+                top=top->next;
+            }
+            else
+            {
+                 top->next=temp2;
+                temp2=temp2->next;
+                top=top->next;
+            }
+        }
+        while(temp1)
+        {
+            top->next=temp1;
+            temp1=temp1->next;
+            top=top->next;
+        }
+        while(temp2)
+        {
+            top->next=temp2;
+            temp2=temp2->next;
+            top=top->next;
+        }
+        return start;
+        
+        
+    }
+};
